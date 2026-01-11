@@ -1,41 +1,197 @@
-Õ<!DOCTYPE html>
+ﬂ9<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Item Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1 { color: #333; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
-        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-        ul { list-style-type: none; padding: 0; }
-        li { background: #f9f9f9; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --accent-color: #ff4b1f;
+            --text-color: #1a1a1a;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #4a00e0;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-weight: 400;
+            margin-bottom: 15px;
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e1e1;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(37, 117, 252, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            border-left: 5px solid var(--secondary-color);
+            animation: slideIn 0.5s ease-out forwards;
+        }
+
+        li:hover {
+            transform: translateX(5px);
+        }
+
+        li strong {
+            display: block;
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
     </style>
 </head>
-<body>
-    <h1>Item Manager</h1>
-    
-    <div id="add-item-form">
-        <h2>Add New Item</h2>
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" required>
-        </div>
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea id="description"></textarea>
-        </div>
-        <button onclick="addItem()">Add Item</button>
-    </div>
 
-    <h2>Items List</h2>
-    <ul id="items-list">
-        <!-- Items will be loaded here -->
-    </ul>
+<body>
+    <div class="container">
+        <h1>Item Manager</h1>
+
+        <div id="add-item-form">
+            <h2>Add New Item</h2>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="E.g., Magic Beans" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" rows="3" placeholder="Describe the item..."></textarea>
+            </div>
+            <button onclick="addItem()">Add to Collection</button>
+        </div>
+
+        <div style="margin-top: 40px;">
+            <h2>Your Items</h2>
+            <ul id="items-list">
+                <!-- Items will be loaded here -->
+            </ul>
+        </div>
+    </div>
 
     <script>
         async function fetchItems() {
@@ -44,9 +200,11 @@
                 const items = await response.json();
                 const list = document.getElementById('items-list');
                 list.innerHTML = '';
-                items.forEach(item => {
+                items.reverse().forEach((item, index) => {
                     const li = document.createElement('li');
-                    li.innerHTML = `<strong>${item.name}</strong><br>${item.description}`;
+                    // Add staggered animation delay
+                    li.style.animationDelay = `${index * 0.1}s`;
+                    li.innerHTML = `<strong>${item.name}</strong>${item.description}`;
                     list.appendChild(li);
                 });
             } catch (error) {
@@ -57,8 +215,9 @@
         async function addItem() {
             const name = document.getElementById('name').value;
             const description = document.getElementById('description').value;
-            
+
             if (!name) {
+                // Shake animation for error could be added here
                 alert('Name is required');
                 return;
             }
@@ -88,5 +247,21 @@
         fetchItems();
     </script>
 </body>
-</html>
-Õ*cascade082"file:///home/vijaydurai/index.html
+
+</html>! *cascade08!"*cascade08"ª *cascade08ª¶*cascade08¶® *cascade08®ˆ*cascade08ˆ˜ *cascade08˜î*cascade08îï *cascade08ïü*cascade08ü† *cascade08†Æ*cascade08Æ¥ *cascade08¥‡*cascade08‡Í *cascade08Íˆ*cascade08ˆÑ *cascade08Ñé*cascade08éô *cascade08ôè*cascade08èí *cascade08í≥*cascade08≥¥ *cascade08¥“*cascade08“” *cascade08”Õ*cascade08Õ‘ *cascade08‘Ú*cascade08Ú˜ *cascade08˜˝*cascade08˝˛ *cascade08˛ë	*cascade08ë	ì	 *cascade08ì	ó	*cascade08ó	ò	 *cascade08ò	∑	*cascade08∑	∏	 *cascade08∏	Ì	*cascade08Ì	Ô	 *cascade08Ô	ı	*cascade08ı	ˆ	 *cascade08ˆ	¸	*cascade08¸	˝	 *cascade08˝	è
+*cascade08è
+ê
+ *cascade08ê
+í
+*cascade08í
+ì
+ *cascade08ì
+µ
+*cascade08µ
+∂
+ *cascade08∂
+”
+*cascade08”
+‘
+ *cascade08‘
+á*cascade08áë *cascade08ëí*cascade08íñ *cascade08ñÀ*cascade08ÀÕ *cascade08ÕŒ*cascade08Œ€ *cascade08€€*cascade08€Ë *cascade08Ëº*cascade08ºæ *cascade08æø*cascade08ø’ *cascade08’·*cascade08·Ò *cascade08ÒÛ*cascade08Ûˆ *cascade08ˆ˛*cascade08˛Ä *cascade08ÄÅ*cascade08Åë *cascade08ëù*cascade08ù≠ *cascade08≠π*cascade08π… *cascade08… *cascade08 Õ *cascade08Õå*cascade08åé *cascade08éè*cascade08èû *cascade08û¶*cascade08¶± *cascade08±Ω*cascade08Ω  *cascade08 ÷*cascade08÷‡ *cascade08‡‚*cascade08‚Â *cascade08Âü*cascade08ü∑ *cascade08∑Ò*cascade08ÒÛ *cascade08Ûµ*cascade08µ∆ *cascade08∆Î*cascade08Îˆ *cascade08ˆ˜*cascade08˜˘ *cascade08˘Ä*cascade08ÄÅ *cascade08ÅÜ*cascade08Üë *cascade08ë∑*cascade08∑Ω *cascade08Ωø*cascade08ø¿ *cascade08¿◊*cascade08◊ÿ *cascade08ÿ‰*cascade08‰Ú *cascade08Ú˛*cascade08˛å *cascade08åÙ*cascade08ÙÖ *cascade08ÖÇ*cascade08ÇÑ *cascade08ÑÖ*cascade08Öú *cascade08ú§*cascade08§• *cascade08•™*cascade08™´ *cascade08´Ø*cascade08Ø∞ *cascade08∞∑*cascade08∑∏ *cascade08∏ø*cascade08ø¿ *cascade08¿”*cascade08”‘ *cascade08‘⁄*cascade08⁄€ *cascade08€‹*cascade08‹ﬂ *cascade08ﬂÂ*cascade08ÂÊ *cascade08Ê*cascade08Ò *cascade08Òï*cascade08ïñ *cascade08ñ…*cascade08…  *cascade08 “*cascade08“‘ *cascade08‘’*cascade08’‚ *cascade08‚Ó*cascade08ÓÖ *cascade08Öë*cascade08ëù *cascade08ù√*cascade08√≈ *cascade08≈∆*cascade08∆” *cascade08”ﬂ*cascade08ﬂÏ *cascade08ÏÒ*cascade08ÒÚ *cascade08Ú˛*cascade08˛Ö *cascade08Öå*cascade08åè *cascade08è *cascade08 ” *cascade08”ﬁ*cascade08ﬁﬂ *cascade08ﬂÖ*cascade08ÖÜ *cascade08Üû*cascade08ûü *cascade08ü†*cascade08†° *cascade08°Ω*cascade08Ωæ *cascade08æ„*cascade08„‰ *cascade08‰ì*cascade08ìï *cascade08ï±*cascade08±≤ *cascade08≤∏*cascade08∏ª *cascade08ª¿*cascade08¿¡ *cascade08¡Ê*cascade08Êˆ *cascade08ˆ∑!*cascade08∑!∏! *cascade08∏!Ò"*cascade08Ò"Ù" *cascade08Ù"ı"*cascade08ı"ˆ" *cascade08ˆ"Ú#*cascade08Ú#ä$ *cascade08ä$ã$*cascade08ã$ó$ *cascade08ó$∑$*cascade08∑$Ã$ *cascade08Ã$Õ$*cascade08Õ$Ó$ *cascade08Ó$Ô$*cascade08Ô$˜$ *cascade08˜$˙$*cascade08˙$ê% *cascade08ê%î%*cascade08î%µ% *cascade08µ%∑%*cascade08∑%√% *cascade08√%≈%*cascade08≈%‰% *cascade08‰%Ë%*cascade08Ë%ë& *cascade08ë&±&*cascade08±&√& *cascade08√&«&*cascade08«&Œ& *cascade08Œ&œ&*cascade08œ&◊& *cascade08◊&⁄&*cascade08⁄&Û& *cascade08Û&˜&*cascade08˜&∞' *cascade08∞'±'*cascade08±'Ω' *cascade08Ω'¿'*cascade08¿'⁄' *cascade08⁄'Ü(*cascade08Ü(ì( *cascade08ì(ó(*cascade08ó(Æ( *cascade08Æ(≤(*cascade08≤(”( *cascade08”(Ÿ(*cascade08Ÿ(⁄( *cascade08⁄(ﬂ(*cascade08ﬂ(È( *cascade08È(Í(*cascade08Í(Ó( *cascade08Ó(Ò(*cascade08Ò(˝( *cascade08˝(≠)*cascade08≠)±) *cascade08±)∂)*cascade08∂)¡) *cascade08¡)…)*cascade08…)‚) *cascade08‚)Í)*cascade08Í)ô* *cascade08ô*°**cascade08°*•* *cascade08•*ø**cascade08ø*˜, *cascade08˜,Å-*cascade08Å-â- *cascade08â-ä-*cascade08ä-é- *cascade08é-ñ-*cascade08ñ-Ì- *cascade08Ì-„.*cascade08„.ã2 *cascade08ã2ã2*cascade08ã2•2 *cascade08•2Ê2*cascade08Ê2◊9 *cascade08◊9ÿ9*cascade08ÿ9ﬂ9 *cascade082"file:///home/vijaydurai/index.html
