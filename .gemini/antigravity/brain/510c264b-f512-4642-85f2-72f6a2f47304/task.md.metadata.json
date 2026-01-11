@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_TASK",
+  "summary":  "Tasks for cleaning up AWS resources.",
+  "updatedAt":  "2026-01-11T11:37:19.412366192Z",
+  "version":  "7"
+}

@@ -1,0 +1,37 @@
+# AWS Config Auto-Remediation Verification
+
+I have successfully created the setup script at:
+[/home/vijaydurai/setup_t3_enforcement_2026_01_11.sh](file:///home/vijaydurai/setup_t3_enforcement_2026_01_11.sh)
+
+## What has been implemented?
+
+This script, when run, will configure:
+1.  **IAM Roles**:
+    *   `t3_enforcement_2026_01_11_ConfigRole`: Allow Config to record resource changes.
+    *   `t3_enforcement_2026_01_11_AutomationRole`: Allow SSM Automation to Stop, Modify, and Start instances.
+2.  **SSM Automation Document**: `t3_enforcement_2026_01_11_EnforceT3Small`. This document defines the workflow (Stop -> Resize -> Start).
+3.  **AWS Config Rule**: `t3_enforcement_2026_01_11_rule` checking for `t3.small` instance type.
+4.  **Auto-Remediation**: configured to trigger the SSM document when the Config rule is non-compliant.
+
+## How to Verify
+
+1.  **Run the Setup Script**:
+    ```bash
+    /home/vijaydurai/setup_t3_enforcement_2026_01_11.sh
+    ```
+
+2.  **Launch a Test Instance**:
+    Launch an EC2 instance with a type *other* than `t3.small` (e.g., `t2.micro`).
+    ```bash
+    aws ec2 run-instances --image-id ami-xxxxxxxx --instance-type t2.micro ...
+    ```
+
+3.  **Observe Remediation**:
+    *   Wait for AWS Config to detect the new instance (this can take a few minutes).
+    *   Once detected as detection non-compliant, Config will trigger the remediation.
+    *   You can watch the instance state in the AWS Console or CLI. It should go `running` -> `stopping` -> `stopped` -> `pending` -> `running`.
+    *   Verify the new instance type is `t3.small`.
+
+    ```bash
+    aws ec2 describe-instances --instance-ids <YOUR_INSTANCE_ID> --query "Reservations[].Instances[].InstanceType"
+    ```

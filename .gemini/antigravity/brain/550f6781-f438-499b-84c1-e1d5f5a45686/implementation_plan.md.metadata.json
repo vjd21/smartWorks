@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to implement AWS Config rule and auto-remediation to enforce t3.small instance type using AWS CLI. Updated with specific naming convention.",
+  "updatedAt":  "2026-01-11T10:53:34.906720795Z",
+  "version":  "2"
+}

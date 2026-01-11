@@ -1,0 +1,43 @@
+# AWS Config Auto-Remediation Plan
+
+## Goal
+Enforce EC2 instance type to be `t3.small` using AWS Config and Auto-Remediation. If an instance is found running with a different type, it will be automatically resized to `t3.small`.
+
+## User Review Required
+> [!IMPORTANT]
+> The remediation process involves **STOPPING** the instance to resize it. This will cause a temporary outage for the affected instance.
+
+> [!NOTE]
+> All files will be created in `/home/vijaydurai` as requested.
+
+## Proposed Changes
+
+We will create a shell script `/home/vijaydurai/setup_aws_config_remediation.sh` containing all necessary AWS CLI commands.
+
+### Components
+
+1.  **IAM Roles**:
+    *   `ConfigRole`: For AWS Config to record resources.
+    *   `AutomationRole`: For SSM to execute the resize actions (Stop, Modify, Start).
+
+2.  **SSM Automation Document**:
+    *   Name: `EnforceT3Small`
+    *   Steps:
+        1.  StopInstance
+        2.  ModifyInstanceAttribute (InstanceType = t3.small)
+        3.  StartInstance
+
+3.  **AWS Config Rule**:
+    *   Name: `desired-instance-type-t3-small`
+    *   SourceIdentifier: `DESIRED_INSTANCE_TYPE`
+    *   InputParameters: `{"instanceType": "t3.small"}`
+
+4.  **Remediation Configuration**:
+    *   TargetType: `SSM_DOCUMENT`
+    *   TargetId: `EnforceT3Small`
+    *   Parameters: `InstanceId` (from Config resource ID), `AutomationAssumeRole`
+
+## Verification Plan
+*   Run the generated script `setup_aws_config_remediation.sh`.
+*   Launch a test instance (e.g., `t2.micro`).
+*   Observe AWS Config triggering the remediation and resizing it to `t3.small`.

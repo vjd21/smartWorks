@@ -1,0 +1,31 @@
+# Cleanup T3 Enforcement Resources
+
+This plan describes the steps to remove AWS resources created for the T3 enforcement task.
+
+## User Review Required
+> [!WARNING]
+> This will permanently delete the specified AWS Config Rule, SSM Document, and IAM Role.
+
+## Proposed Changes
+I will create and run a shell script `cleanup_t3_enforcement.sh` to perform the following:
+
+### AWS Config
+#### [DELETE] Remediation Configuration
+- For Config Rule: `t3_enforcement_2026_01_11_rule`
+
+#### [DELETE] Config Rule
+- Name: `t3_enforcement_2026_01_11_rule`
+
+### Systems Manager (SSM)
+#### [DELETE] Automation Document
+- Name: `t3_enforcement_2026_01_11_EnforceT3Small`
+
+### IAM
+#### [DELETE] Role and Policies
+- Role Name: `t3_enforcement_2026_01_11_AutomationRole`
+- Detach Policy: `arn:aws:iam::aws:policy/service-role/AmazonSSMAutomationRole`
+- Delete Instance Profile (if exists): `t3_enforcement_2026_01_11_AutomationRole`
+
+## Verification Plan
+### Automated Verification
+After running the cleanup script, I will run the detection script ([detect_resources.sh](file:///home/vijaydurai/.gemini/antigravity/scratch/detect_resources.sh)) again to verify that no resources return.

@@ -1,0 +1,4 @@
+- [ ] Detect existing AWS resources related to T3 enforcement
+- [ ] Create cleanup script
+- [ ] Run cleanup script
+- [ ] Verify deletion

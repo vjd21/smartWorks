@@ -1,0 +1,10 @@
+# Tasks
+
+- [/] Check environment requirements (Node, Postgres) <!-- id: 0 -->
+- [ ] Create Implementation Plan <!-- id: 1 -->
+- [ ] Initialize Project Directory <!-- id: 2 -->
+- [ ] Setup Database (Postgres) <!-- id: 3 -->
+- [ ] Create Backend (Node/Express) <!-- id: 4 -->
+- [ ] Create Frontend (Simple HTML/CSS/JS) <!-- id: 5 -->
+- [ ] Connect FE & BE <!-- id: 6 -->
+- [ ] Verify Application <!-- id: 7 -->

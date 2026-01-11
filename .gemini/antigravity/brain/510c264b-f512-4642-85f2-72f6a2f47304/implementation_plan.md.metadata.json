@@ -1,0 +1,6 @@
+{
+  "artifactType":  "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary":  "Plan to delete AWS Config infrastructure and remaining resources.",
+  "updatedAt":  "2026-01-11T11:36:19.483530941Z",
+  "version":  "1"
+}

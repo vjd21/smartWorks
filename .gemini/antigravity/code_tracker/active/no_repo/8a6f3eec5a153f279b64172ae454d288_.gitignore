@@ -1,0 +1,11 @@
+h__pycache__/
+*.pyc
+.antigravity-server
+.bash_history
+.bash_logout
+.bashrc
+.profile
+.ssh/
+.cache/
+app.db
+h *cascade082"file:///home/vijaydurai/.gitignore
