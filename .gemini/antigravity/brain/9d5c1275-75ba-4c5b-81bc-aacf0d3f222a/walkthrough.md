@@ -26,6 +26,15 @@ git config user.email "bot@example.com"
 git config user.name "Antigravity Bot"
 ```
 
+## Permanent Configuration
+To make these settings permanent for all projects, use the `--global` flag:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --global push.autoSetupRemote true
+```
+
 ## Validation Results
 
 - **Git Status**: [Success]
